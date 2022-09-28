@@ -1,0 +1,25 @@
+{
+	"name": "typescript",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "npm run init && cd ./server-side && npm run test-noReport",
+		"build": " cd ./server-side && npm run build && cd ..",
+		"init": " cd ./server-side && npm install --force && cd ..",
+		"publish-addon": "npm run build && publish-addon",
+		"lint": "eslint --fix  ./server-side/*.ts",
+		"cpi-publish-addon": "cd ./cpi-side && npm run build:debug && cd .. && cpi-node-debug"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"@pepperi-addons/scripts": "*"
+	},
+	"devDependencies": {
+		"@typescript-eslint/eslint-plugin": "^5.33.1",
+		"@typescript-eslint/parser": "^5.33.1",
+		"eslint": "^8.24.0"
+	}
+}
