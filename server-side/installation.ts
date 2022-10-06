@@ -10,7 +10,7 @@ The error Message is important! it will be written in the audit log and help the
 
 import { Client, Request } from '@pepperi-addons/debug-server';
 import { AddonDataScheme, PapiClient, Relation } from '@pepperi-addons/papi-sdk';
-import { AbstractActivitiesConstants } from './constants';
+import { BaseActivitiesConstants } from './constants';
 import { Helper } from './helper';
 
 export async function install(client: Client, request: Request): Promise<any> 
@@ -53,11 +53,11 @@ export async function downgrade(client: Client, request: Request): Promise<any>
 async function createAbstractActivitiesSchema(papiClient: PapiClient, client: Client)
 {
 	const schema: AddonDataScheme = {
-		Name: AbstractActivitiesConstants.SCHEMA_NAME,
+		Name: BaseActivitiesConstants.SCHEMA_NAME,
 		Type: 'abstract',
 		AddonUUID: client.AddonUUID,
 		DataSourceData: {
-			IndexName: AbstractActivitiesConstants.DATA_SOURCE_INDEX_NAME
+			IndexName: BaseActivitiesConstants.DATA_SOURCE_INDEX_NAME
 		},
 		Fields:
         {
@@ -106,7 +106,7 @@ async function postDimxRelations(papiClient: PapiClient, client: Client, isHidde
 		RelationName: "DataImportResource",
 		AddonUUID: client.AddonUUID,
 		AddonRelativeURL: '',
-		Name: AbstractActivitiesConstants.SCHEMA_NAME,
+		Name: BaseActivitiesConstants.SCHEMA_NAME,
 		Type: 'AddonAPI',
 		Source: 'adal',
 		Hidden: isHidden
@@ -116,7 +116,7 @@ async function postDimxRelations(papiClient: PapiClient, client: Client, isHidde
 		RelationName: "DataExportResource",
 		AddonUUID: client.AddonUUID,
 		AddonRelativeURL: '',
-		Name: AbstractActivitiesConstants.SCHEMA_NAME,
+		Name: BaseActivitiesConstants.SCHEMA_NAME,
 		Type: 'AddonAPI',
 		Source: 'adal',
 		Hidden: isHidden

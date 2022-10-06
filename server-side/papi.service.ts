@@ -1,6 +1,6 @@
 import { Client } from '@pepperi-addons/debug-server/dist';
 import { FindOptions, PapiClient } from '@pepperi-addons/papi-sdk';
-import { AbstractActivitiesConstants } from './constants';
+import { BaseActivitiesConstants } from './constants';
 import IApiService from './iApiService';
 import { BaseActivity } from './types';
 
@@ -11,12 +11,12 @@ export class PapiService implements IApiService
 
 	async getBaseActivities(findOptions: FindOptions): Promise<Array<BaseActivity>>
 	{
-		return this.papiClient.addons.data.uuid(this.client.AddonUUID).table(AbstractActivitiesConstants.SCHEMA_NAME).find(findOptions);
+		return this.papiClient.addons.data.uuid(this.client.AddonUUID).table(BaseActivitiesConstants.SCHEMA_NAME).find(findOptions);
 	}
 
 	async getBaseActivityByKey(key: any): Promise<BaseActivity>
 	{
-		return this.papiClient.addons.data.uuid(this.client.AddonUUID).table(AbstractActivitiesConstants.SCHEMA_NAME).key(key).get();
+		return this.papiClient.addons.data.uuid(this.client.AddonUUID).table(BaseActivitiesConstants.SCHEMA_NAME).key(key).get();
 	}
 
 	/**
@@ -32,12 +32,12 @@ export class PapiService implements IApiService
         	where: `${unique_field} = '${value}'`,
         }
         
-		return this.papiClient.addons.data.uuid(this.client.AddonUUID).table(AbstractActivitiesConstants.SCHEMA_NAME).find(findOptions);
+		return this.papiClient.addons.data.uuid(this.client.AddonUUID).table(BaseActivitiesConstants.SCHEMA_NAME).find(findOptions);
 	}
 
 	postBaseActivity(body: BaseActivity): Promise<BaseActivity>
 	{
-		return this.papiClient.addons.data.uuid(this.client.AddonUUID).table(AbstractActivitiesConstants.SCHEMA_NAME).upsert(body);
+		return this.papiClient.addons.data.uuid(this.client.AddonUUID).table(BaseActivitiesConstants.SCHEMA_NAME).upsert(body);
 	}
 }
 

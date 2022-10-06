@@ -1,6 +1,6 @@
 import { FindOptions } from '@pepperi-addons/papi-sdk'
 import { Request } from '@pepperi-addons/debug-server';
-import { AbstractActivitiesConstants } from './constants';
+import { BaseActivitiesConstants } from './constants';
 import { BaseActivity } from './types';
 import IApiService from './iApiService';
 
@@ -147,9 +147,9 @@ export class BaseActivityService
 			throw new Error(errorMessage);
 		}
 
-		if(!AbstractActivitiesConstants.UNIQUE_FIELDS.includes(this.request.query.unique_field))
+		if(!BaseActivitiesConstants.UNIQUE_FIELDS.includes(this.request.query.unique_field))
 		{
-			const errorMessage = `The unique_field parameter must be one of the following: '${AbstractActivitiesConstants.UNIQUE_FIELDS.join(', ')}'.`;
+			const errorMessage = `The unique_field parameter must be one of the following: '${BaseActivitiesConstants.UNIQUE_FIELDS.join(', ')}'.`;
 			console.error(errorMessage);
 			throw new Error(errorMessage);
 		}
