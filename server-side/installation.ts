@@ -80,7 +80,11 @@ async function createAbstractActivitiesSchema(papiClient: PapiClient, client: Cl
         	Agent:
             {
             	Type: 'String'
-            }
+            },
+			ExternalID:
+			{
+				Type: 'String'
+			}
         }
 	}
 
