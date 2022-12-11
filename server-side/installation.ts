@@ -43,7 +43,7 @@ export async function uninstall(client: Client, request: Request): Promise<any>
 
 export async function upgrade(client: Client, request: Request): Promise<any> 
 {
-	if(semverLessThanEqual(request.body.FromVersion, '0.0.5'))
+	if(semverLessThanEqual(request.body.FromVersion, '0.0.4'))
 	{
 		const errorMessage = `Upgrading to this version form versions <= 0.0.4 is not supported. Kindly uninstall the currently installed version, and install the requested one.`
 		return {success: false, errorMessage: errorMessage};
