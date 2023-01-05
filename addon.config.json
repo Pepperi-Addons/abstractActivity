@@ -14,7 +14,9 @@
   "PublishConfig": {
     "ClientStack": "ng14",
     "Editors": [],
-    "Dependencies": {},
+    "Dependencies": {
+      "core_resources": "0.6.24"
+    },
     "CPISide": []
   }
 }
