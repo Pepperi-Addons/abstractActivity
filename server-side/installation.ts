@@ -48,6 +48,20 @@ export async function upgrade(client: Client, request: Request): Promise<any>
 		const errorMessage = `Upgrading to this version form versions <= 0.0.4 is not supported. Kindly uninstall the currently installed version, and install the requested one.`
 		return {success: false, errorMessage: errorMessage};
 	}
+
+	// Upsert schema to have reference fields
+	if (semverLessThanEqual(request.body.FromVersion, '0.0.5')) 
+	{
+		try
+		{
+			const papiClient = Helper.getPapiClient(client);
+			await createAbstractActivitiesSchema(papiClient, client);
+		}
+		catch(error)
+		{
+			return { success: false, errorMessage: error instanceof Error ? error.message : 'Unknown error occurred.' };
+		}
+	}
 	return {success:true,resultObject:{}}
 }
 
@@ -76,16 +90,22 @@ async function createAbstractActivitiesSchema(papiClient: PapiClient, client: Cl
             	Type: 'DateTime'
             },
         	Account:
-            {
-            	Type: 'String'
-            },
+			{
+				Type: "Resource",
+				Resource: "accounts",
+				AddonUUID: BaseActivitiesConstants.CORE_RESOURCES_ADDON_UUID
+			},
         	Creator:
             {
-            	Type: 'String'
+            	Type: "Resource",
+				Resource: "users",
+				AddonUUID: BaseActivitiesConstants.CORE_RESOURCES_ADDON_UUID
             },
         	Agent:
             {
-            	Type: 'String'
+            	Type: "Resource",
+				Resource: "users",
+				AddonUUID: BaseActivitiesConstants.CORE_RESOURCES_ADDON_UUID
             },
 			ExternalID:
 			{
