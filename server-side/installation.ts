@@ -12,7 +12,7 @@ import { Client, Request } from '@pepperi-addons/debug-server';
 import { AddonDataScheme, PapiClient, Relation } from '@pepperi-addons/papi-sdk';
 import { BaseActivitiesConstants } from './constants';
 import { Helper } from './helper';
-import semverLessThanComparator from 'semver/functions/lt'
+import semverLessThanEqual from 'semver/functions/lte';
 
 export async function install(client: Client, request: Request): Promise<any> 
 {
@@ -43,8 +43,14 @@ export async function uninstall(client: Client, request: Request): Promise<any>
 
 export async function upgrade(client: Client, request: Request): Promise<any> 
 {
+	if(semverLessThanEqual(request.body.FromVersion, '0.0.4'))
+	{
+		const errorMessage = `Upgrading to this version form versions <= 0.0.4 is not supported. Kindly uninstall the currently installed version, and install the requested one.`
+		return {success: false, errorMessage: errorMessage};
+	}
+
 	// Upsert schema to have reference fields
-	if (request.body.FromVersion && semverLessThanComparator(request.body.FromVersion, '0.0.5')) 
+	if (semverLessThanEqual(request.body.FromVersion, '0.0.5')) 
 	{
 		try
 		{
@@ -56,7 +62,6 @@ export async function upgrade(client: Client, request: Request): Promise<any>
 			return { success: false, errorMessage: error instanceof Error ? error.message : 'Unknown error occurred.' };
 		}
 	}
-
 	return {success:true,resultObject:{}}
 }
 

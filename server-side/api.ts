@@ -4,7 +4,7 @@ import PapiService from './papi.service';
 import { BaseActivityService } from './activity.service';
 import IApiService from './iApiService';
 
-export async function baseActivities(client: Client, request: Request) 
+export async function base_activities(client: Client, request: Request) 
 {
 	console.log(`Query received: ${JSON.stringify(request.query)}`);
 
@@ -27,7 +27,7 @@ export async function baseActivities(client: Client, request: Request)
 	}
 }
 
-export async function get_baseActivities_by_key(client: Client, request: Request) 
+export async function get_base_activities_by_key(client: Client, request: Request) 
 {
 	console.log(`Query received: ${JSON.stringify(request.query)}`);
 
@@ -45,7 +45,7 @@ export async function get_baseActivities_by_key(client: Client, request: Request
 	}
 }
 
-export async function get_baseActivities_by_unique_field(client: Client, request: Request) 
+export async function get_base_activities_by_unique_field(client: Client, request: Request) 
 {
 	console.log(`Query received: ${JSON.stringify(request.query)}`);
 
