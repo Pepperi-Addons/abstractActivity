@@ -12,6 +12,7 @@ import { Client, Request } from '@pepperi-addons/debug-server';
 import { AddonDataScheme, PapiClient, Relation } from '@pepperi-addons/papi-sdk';
 import { BaseActivitiesConstants } from './constants';
 import { Helper } from './helper';
+import semverLessThanComparator from 'semver/functions/lt'
 
 export async function install(client: Client, request: Request): Promise<any> 
 {
@@ -42,6 +43,20 @@ export async function uninstall(client: Client, request: Request): Promise<any>
 
 export async function upgrade(client: Client, request: Request): Promise<any> 
 {
+	// Upsert schema to have reference fields
+	if (request.body.FromVersion && semverLessThanComparator(request.body.FromVersion, '0.0.5')) 
+	{
+		try
+		{
+			const papiClient = Helper.getPapiClient(client);
+			await createAbstractActivitiesSchema(papiClient, client);
+		}
+		catch(error)
+		{
+			return { success: false, errorMessage: error instanceof Error ? error.message : 'Unknown error occurred.' };
+		}
+	}
+
 	return {success:true,resultObject:{}}
 }
 
@@ -70,16 +85,22 @@ async function createAbstractActivitiesSchema(papiClient: PapiClient, client: Cl
             	Type: 'DateTime'
             },
         	Account:
-            {
-            	Type: 'String'
-            },
+			{
+				Type: "Resource",
+				Resource: "accounts",
+				AddonUUID: BaseActivitiesConstants.CORE_RESOURCES_ADDON_UUID
+			},
         	Creator:
             {
-            	Type: 'String'
+            	Type: "Resource",
+				Resource: "users",
+				AddonUUID: BaseActivitiesConstants.CORE_RESOURCES_ADDON_UUID
             },
         	Agent:
             {
-            	Type: 'String'
+            	Type: "Resource",
+				Resource: "users",
+				AddonUUID: BaseActivitiesConstants.CORE_RESOURCES_ADDON_UUID
             },
 			ExternalID:
 			{
