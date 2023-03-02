@@ -49,8 +49,8 @@ export async function upgrade(client: Client, request: Request): Promise<any>
 		return {success: false, errorMessage: errorMessage};
 	}
 
-	// Upsert schema to have reference fields
-	if (semverLessThanEqual(request.body.FromVersion, '0.0.5')) 
+	// Upsert schema to have reference fields and set the ne camel case index name
+	if (semverLessThanEqual(request.body.FromVersion, '0.0.6')) 
 	{
 		try
 		{
