@@ -49,8 +49,8 @@ export async function upgrade(client: Client, request: Request): Promise<any>
 		return {success: false, errorMessage: errorMessage};
 	}
 
-	// Upsert schema to have reference fields
-	if (semverLessThanEqual(request.body.FromVersion, '0.0.5')) 
+	// Upsert schema to have reference fields, new index name and indexed fields
+	if (semverLessThanEqual(request.body.FromVersion, '0.0.7')) 
 	{
 		try
 		{
@@ -83,33 +83,70 @@ async function createAbstractActivitiesSchema(papiClient: PapiClient, client: Cl
         {
         	StatusName: 
             {
-            	Type: 'String'
+            	Type: 'String',
+				Indexed: true
             },
         	ActionDateTime: 
             {
-            	Type: 'DateTime'
+            	Type: 'DateTime',
+				Indexed: true
             },
         	Account:
 			{
 				Type: "Resource",
 				Resource: "accounts",
-				AddonUUID: BaseActivitiesConstants.CORE_RESOURCES_ADDON_UUID
+				AddonUUID: BaseActivitiesConstants.CORE_RESOURCES_ADDON_UUID,
+				Indexed: true,
+				IndexedFields:
+				{
+					Name: {
+						Type: "String",
+						Indexed: true
+					},
+					ExternalID: {
+						Type: "String",
+						Indexed: true
+					}
+				}
 			},
         	Creator:
             {
             	Type: "Resource",
 				Resource: "users",
-				AddonUUID: BaseActivitiesConstants.CORE_RESOURCES_ADDON_UUID
+				AddonUUID: BaseActivitiesConstants.CORE_RESOURCES_ADDON_UUID,
+				Indexed: true,
+				IndexedFields: {
+					Name: {
+						Type: "String",
+						Indexed: true
+					},
+					ExternalID: {
+						Type: "String",
+						Indexed: true
+					}
+				}
             },
         	Agent:
             {
             	Type: "Resource",
 				Resource: "users",
-				AddonUUID: BaseActivitiesConstants.CORE_RESOURCES_ADDON_UUID
+				AddonUUID: BaseActivitiesConstants.CORE_RESOURCES_ADDON_UUID,
+				Indexed: true,
+				IndexedFields: {
+					Name: {
+						Type: "String",
+						Indexed: true
+					},
+					ExternalID: {
+						Type: "String",
+						Indexed: true
+					}
+				}
             },
 			ExternalID:
 			{
-				Type: 'String'
+				Type: 'String',
+				Indexed: true
 			}
         }
 	}
