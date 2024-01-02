@@ -107,7 +107,8 @@ async function createAbstractActivitiesSchema(papiClient: PapiClient, client: Cl
 						Type: "String",
 						Indexed: true
 					}
-				}
+				},
+				ApplySystemFilter: true,
 			},
         	Creator:
             {
@@ -141,7 +142,8 @@ async function createAbstractActivitiesSchema(papiClient: PapiClient, client: Cl
 						Type: "String",
 						Indexed: true
 					}
-				}
+				},
+				ApplySystemFilter: true,
             },
 			ExternalID:
 			{
