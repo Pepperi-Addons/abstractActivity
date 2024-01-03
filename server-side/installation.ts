@@ -49,8 +49,8 @@ export async function upgrade(client: Client, request: Request): Promise<any>
 		return {success: false, errorMessage: errorMessage};
 	}
 
-	// Upsert schema to have reference fields, new index name and indexed fields
-	if (semverLessThanEqual(request.body.FromVersion, '0.0.7')) 
+	// Upsert schema to have ApplySystemFilter on Account and Agent
+	if (semverLessThanEqual(request.body.FromVersion, '0.0.8')) 
 	{
 		try
 		{
@@ -107,7 +107,8 @@ async function createAbstractActivitiesSchema(papiClient: PapiClient, client: Cl
 						Type: "String",
 						Indexed: true
 					}
-				}
+				},
+				ApplySystemFilter: true,
 			},
         	Creator:
             {
@@ -141,7 +142,8 @@ async function createAbstractActivitiesSchema(papiClient: PapiClient, client: Cl
 						Type: "String",
 						Indexed: true
 					}
-				}
+				},
+				ApplySystemFilter: true,
             },
 			ExternalID:
 			{
