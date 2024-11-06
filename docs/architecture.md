@@ -1,4 +1,4 @@
-# [addon name] Architecture
+# Abstract Activity Architecture
 
 ## Overview
 
