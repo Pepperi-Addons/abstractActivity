@@ -2,8 +2,9 @@
 
 ## Overview
 
-Creates the abstract activity scheme, which is inherited by new activities.  
-In the future might be used to hold common logic for all activities, once ADAL will be able to support it (schemes logic inheritance).
+Creates the abstract activity scheme, which is inherited by new activities.
+
+In the future it might be used to hold common logic for all activities - once ADAL will be able to support it (schemes logic inheritance).
 
 ---
 

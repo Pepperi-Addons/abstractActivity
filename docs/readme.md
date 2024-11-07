@@ -1,8 +1,7 @@
 # Abstract Activity
 
 ## High Level
-
-Creates the abstract activity scheme, which is inherited by new activities.
+Creates required schemes for activities creation.  
 
 ---
 
